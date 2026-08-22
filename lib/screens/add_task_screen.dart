@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../models/task.dart';
 
 class AddTaskScreen extends StatefulWidget {
@@ -35,7 +36,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
         category: categoryController.text.trim(),
         dueDate: DateTime.now().add(const Duration(days: 1)),
         priority: priority));
-    Navigator.pop(context);
+    context.pop();
   }
 
   @override

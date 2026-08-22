@@ -5,7 +5,7 @@ TaskFlow is a daily task manager built with Flutter. It helps users capture prio
 ## Features
 
 - Dashboard with data-driven open, completed and weekly task statistics
-- Named-route navigation across Today, Tasks, Settings and New Task
+- GoRouter named navigation across Today, Tasks, Settings, New Task and details
 - Search and category filtering on the task list
 - Task detail screen with a passed `Task` parameter
 - Validated form with title, description and category fields
@@ -56,9 +56,9 @@ lib/
 | Requirement | Implementation |
 | --- | --- |
 | 4+ screens | Today dashboard, All tasks, Task details, New task and Settings |
-| Navigation | Named routes in `lib/main.dart`, including `/detail` |
+| Navigation | GoRouter named routes in `lib/main.dart`, including `/detail` |
 | Search/filter | Search field and category `ChoiceChip` filters in `TasksScreen` |
-| Parameter passing | `Task` passed through `Navigator.pushNamed(..., arguments: task)` |
+| Parameter passing | `Task` passed through `context.push('/detail', extra: task)` |
 | Validated form | Title, description and category validators in `AddTaskScreen` |
 | Theme support | Material 3 light/dark themes and Settings switch |
 | Widget variety | `ListView`, `GridView`, `Stack`, `Card`, `Checkbox`, `ChoiceChip`, `Form`, `TextFormField` and more |

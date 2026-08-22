@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../data/task_data.dart';
 import '../models/task.dart';
 import '../widgets/empty_state.dart';
@@ -28,7 +29,7 @@ class _TasksScreenState extends State<TasksScreen> {
     return Scaffold(
       appBar: AppBar(title: const Text('All tasks'), actions: [
         IconButton(
-            onPressed: () => Navigator.pushNamed(context, '/settings'),
+            onPressed: () => context.go('/settings'),
             icon: const Icon(Icons.tune),
             tooltip: 'Settings')
       ]),
@@ -69,14 +70,12 @@ class _TasksScreenState extends State<TasksScreen> {
                       final task = filtered[index];
                       return TaskCard(
                           task: task,
-                          onTap: () => Navigator.pushNamed(context, '/detail',
-                              arguments: task),
+                          onTap: () => context.push('/detail', extra: task),
                           onToggle: (_) => widget.onToggle(task));
                     })),
       ]),
       floatingActionButton: FloatingActionButton(
-          onPressed: () => Navigator.pushNamed(context, '/add'),
-          child: const Icon(Icons.add)),
+          onPressed: () => context.push('/add'), child: const Icon(Icons.add)),
     );
   }
 }

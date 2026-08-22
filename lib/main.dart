@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'data/task_data.dart';
 import 'models/task.dart';
 import 'screens/add_task_screen.dart';
@@ -58,25 +59,40 @@ class _TaskFlowAppState extends State<TaskFlowApp> {
       );
 
   @override
-  Widget build(BuildContext context) => MaterialApp(
+  Widget build(BuildContext context) => MaterialApp.router(
         title: 'TaskFlow',
         debugShowCheckedModeBanner: false,
         theme: theme(Brightness.light),
         darkTheme: theme(Brightness.dark),
         themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
-        initialRoute: '/',
-        routes: {
-          '/': (_) => HomeScreen(tasks: tasks, onToggle: toggleTask),
-          '/tasks': (_) => TasksScreen(tasks: tasks, onToggle: toggleTask),
-          '/settings': (_) => SettingsScreen(
-                isDark: isDark,
-                onThemeChanged: (value) => setState(() => isDark = value),
-              ),
-          '/add': (_) => AddTaskScreen(onCreate: addTask),
-          '/detail': (context) {
-            final task = ModalRoute.of(context)!.settings.arguments! as Task;
-            return TaskDetailScreen(task: task);
-          },
-        },
+        routerConfig: GoRouter(
+          routes: [
+            GoRoute(
+                path: '/',
+                name: 'home',
+                builder: (_, __) =>
+                    HomeScreen(tasks: tasks, onToggle: toggleTask)),
+            GoRoute(
+                path: '/tasks',
+                name: 'tasks',
+                builder: (_, __) =>
+                    TasksScreen(tasks: tasks, onToggle: toggleTask)),
+            GoRoute(
+                path: '/settings',
+                name: 'settings',
+                builder: (_, __) => SettingsScreen(
+                    isDark: isDark,
+                    onThemeChanged: (value) => setState(() => isDark = value))),
+            GoRoute(
+                path: '/add',
+                name: 'add-task',
+                builder: (_, __) => AddTaskScreen(onCreate: addTask)),
+            GoRoute(
+                path: '/detail',
+                name: 'task-detail',
+                builder: (_, state) =>
+                    TaskDetailScreen(task: state.extra! as Task)),
+          ],
+        ),
       );
 }

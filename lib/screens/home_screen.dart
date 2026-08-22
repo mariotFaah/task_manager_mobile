@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../data/task_data.dart';
 import '../models/task.dart';
 import '../widgets/stat_card.dart';
@@ -17,7 +18,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('TaskFlow'), actions: [
         IconButton(
-            onPressed: () => Navigator.pushNamed(context, '/settings'),
+            onPressed: () => context.go('/settings'),
             icon: const Icon(Icons.settings_outlined),
             tooltip: 'Settings')
       ]),
@@ -82,22 +83,21 @@ class HomeScreen extends StatelessWidget {
                         .titleLarge
                         ?.copyWith(fontWeight: FontWeight.w800)),
                 TextButton(
-                    onPressed: () => Navigator.pushNamed(context, '/tasks'),
+                    onPressed: () => context.go('/tasks'),
                     child: const Text('See all'))
               ]),
               const SizedBox(height: 10),
               ...pending.take(3).map((task) => TaskCard(
                   task: task,
-                  onTap: () =>
-                      Navigator.pushNamed(context, '/detail', arguments: task),
+                  onTap: () => context.push('/detail', extra: task),
                   onToggle: (_) => onToggle(task))),
             ]);
       }),
       bottomNavigationBar: NavigationBar(
           selectedIndex: 0,
           onDestinationSelected: (index) {
-            if (index == 1) Navigator.pushNamed(context, '/tasks');
-            if (index == 2) Navigator.pushNamed(context, '/settings');
+            if (index == 1) context.go('/tasks');
+            if (index == 2) context.go('/settings');
           },
           destinations: const [
             NavigationDestination(
@@ -110,8 +110,7 @@ class HomeScreen extends StatelessWidget {
                 icon: Icon(Icons.settings_outlined), label: 'Settings')
           ]),
       floatingActionButton: FloatingActionButton(
-          onPressed: () => Navigator.pushNamed(context, '/add'),
-          child: const Icon(Icons.add)),
+          onPressed: () => context.push('/add'), child: const Icon(Icons.add)),
     );
   }
 }
