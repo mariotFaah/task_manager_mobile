@@ -1,6 +1,6 @@
 # TaskFlow
 
-TaskFlow is a daily task manager built with Flutter. It helps users capture priorities, find tasks quickly and keep a simple view of what is next.
+TaskFlow is a daily task manager with a Flutter interface and a pure Dart CLI. It helps users capture priorities, find tasks quickly and keep a simple view of what is next.
 
 ## Features
 
@@ -18,11 +18,28 @@ TaskFlow is a daily task manager built with Flutter. It helps users capture prio
 
 ```text
 lib/
+  cli/
   data/task_data.dart
   models/task.dart
   screens/
   widgets/
   main.dart
+bin/
+  taskflow_cli.dart
+test/
+  task_manager_test.dart
+```
+
+## Dart CLI
+
+The CLI stores tasks in `tasks.json` and supports creation, listing with due-date sorting, completion and deletion. The implementation uses a generic repository interface, JSON persistence, custom exceptions and a mock repository in unit tests.
+
+```bash
+dart run bin/taskflow_cli.dart add --title "Buy groceries" --description "Milk and vegetables" --due 2026-08-22T18:45:00
+dart run bin/taskflow_cli.dart list --sort-due
+dart run bin/taskflow_cli.dart complete TASK_ID
+dart run bin/taskflow_cli.dart delete TASK_ID
+flutter test test/task_manager_test.dart
 ```
 
 ## Launch instructions
@@ -65,3 +82,14 @@ lib/
 | Reusable widgets | `TaskCard`, `StatCard` and `EmptyState` in `lib/widgets/` |
 | Responsive UI | `LayoutBuilder` changes the dashboard grid for tablet widths |
 | Data separation | Tasks, categories and dashboard calculations live outside screen widgets |
+
+## CLI certification checklist
+
+| Requirement | Implementation |
+| --- | --- |
+| Task operations | Add, list, sort, complete and delete in `TaskManager` |
+| JSON persistence | Generic `Repository<T>` and `JsonTaskRepository` |
+| OOP design | Abstract `TaskAction<T>`, interface implementation and model methods |
+| Error handling | `TaskNotFoundException` and `InvalidTaskException` |
+| Unit tests | Six tests with `MockRepository` in `test/task_manager_test.dart` |
+| Argument parsing | CLI commands and named options in `bin/taskflow_cli.dart` |
