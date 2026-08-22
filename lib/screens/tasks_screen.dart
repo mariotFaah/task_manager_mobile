@@ -3,7 +3,6 @@ import '../data/task_data.dart';
 import '../models/task.dart';
 import '../widgets/empty_state.dart';
 import '../widgets/task_card.dart';
-import 'task_detail_screen.dart';
 
 class TasksScreen extends StatefulWidget {
   const TasksScreen({super.key, required this.tasks, required this.onToggle});
@@ -70,11 +69,8 @@ class _TasksScreenState extends State<TasksScreen> {
                       final task = filtered[index];
                       return TaskCard(
                           task: task,
-                          onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (_) =>
-                                      TaskDetailScreen(task: task))),
+                          onTap: () => Navigator.pushNamed(context, '/detail',
+                              arguments: task),
                           onToggle: (_) => widget.onToggle(task));
                     })),
       ]),

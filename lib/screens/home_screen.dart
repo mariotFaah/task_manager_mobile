@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import '../data/task_data.dart';
 import '../models/task.dart';
 import '../widgets/stat_card.dart';
 import '../widgets/task_card.dart';
-import 'task_detail_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key, required this.tasks, required this.onToggle});
@@ -12,7 +12,8 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pending = tasks.where((task) => !task.isCompleted).toList();
-    final completed = tasks.where((task) => task.isCompleted).length;
+    final completed = completedTaskCount(tasks);
+    final dueThisWeek = dueThisWeekCount(tasks, DateTime.now());
     return Scaffold(
       appBar: AppBar(title: const Text('TaskFlow'), actions: [
         IconButton(
@@ -61,17 +62,17 @@ class HomeScreen extends StatelessWidget {
                   childAspectRatio: 1.5,
                   children: [
                     StatCard(
-                        value: '${pending.length}',
+                        value: '${openTaskCount(tasks)}',
                         label: 'Open tasks',
                         color: Theme.of(context).colorScheme.primary),
                     StatCard(
                         value: '$completed',
                         label: 'Completed',
                         color: const Color(0xffd95d39)),
-                    const StatCard(
-                        value: '3',
+                    StatCard(
+                        value: '$dueThisWeek',
                         label: 'Due this week',
-                        color: Color(0xff7b5e3b))
+                        color: const Color(0xff7b5e3b))
                   ]),
               const SizedBox(height: 30),
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
@@ -87,10 +88,8 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(height: 10),
               ...pending.take(3).map((task) => TaskCard(
                   task: task,
-                  onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) => TaskDetailScreen(task: task))),
+                  onTap: () =>
+                      Navigator.pushNamed(context, '/detail', arguments: task),
                   onToggle: (_) => onToggle(task))),
             ]);
       }),

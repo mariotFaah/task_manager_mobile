@@ -4,6 +4,7 @@ import 'models/task.dart';
 import 'screens/add_task_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/settings_screen.dart';
+import 'screens/task_detail_screen.dart';
 import 'screens/tasks_screen.dart';
 
 void main() => runApp(const TaskFlowApp());
@@ -72,6 +73,10 @@ class _TaskFlowAppState extends State<TaskFlowApp> {
                 onThemeChanged: (value) => setState(() => isDark = value),
               ),
           '/add': (_) => AddTaskScreen(onCreate: addTask),
+          '/detail': (context) {
+            final task = ModalRoute.of(context)!.settings.arguments! as Task;
+            return TaskDetailScreen(task: task);
+          },
         },
       );
 }

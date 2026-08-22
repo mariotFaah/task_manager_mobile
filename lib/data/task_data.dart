@@ -37,3 +37,19 @@ final List<Task> sampleTasks = [
 ];
 
 const categories = ['All', 'Work', 'Personal', 'Health', 'Learning'];
+
+int openTaskCount(Iterable<Task> tasks) =>
+    tasks.where((task) => !task.isCompleted).length;
+
+int completedTaskCount(Iterable<Task> tasks) =>
+    tasks.where((task) => task.isCompleted).length;
+
+int dueThisWeekCount(Iterable<Task> tasks, DateTime today) {
+  final weekEnd = today.add(const Duration(days: 7));
+  return tasks
+      .where((task) =>
+          !task.isCompleted &&
+          !task.dueDate.isBefore(today) &&
+          task.dueDate.isBefore(weekEnd))
+      .length;
+}

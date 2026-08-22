@@ -22,5 +22,11 @@ void main() {
 
     expect(find.text('All tasks'), findsOneWidget);
     expect(find.text('Search tasks'), findsOneWidget);
+
+    await tester.tap(find.text('Plan the weekly groceries'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Task details'), findsOneWidget);
+    expect(find.text('Plan the weekly groceries'), findsOneWidget);
   });
 }
