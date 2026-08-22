@@ -35,7 +35,21 @@ lib/
 
 ## Screenshots
 
-Add device captures to `docs/screenshots/` before publishing the repository. Recommended captures are the Today dashboard, filtered task list, task detail and dark theme settings screen.
+### Today dashboard
+
+![TaskFlow Today dashboard](images/today.png)
+
+### Filtered task list
+
+![TaskFlow filtered task list](images/filtered_task.png)
+
+### Task details
+
+![TaskFlow task details](images/task_details.png)
+
+### Dark theme
+
+![TaskFlow dark theme](images/dark_theme.png)
 
 ## Evaluation checklist
 
