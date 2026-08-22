@@ -88,10 +88,13 @@ class _TaskFlowAppState extends State<TaskFlowApp> {
                 name: 'add-task',
                 builder: (_, __) => AddTaskScreen(onCreate: addTask)),
             GoRoute(
-                path: '/detail',
+                path: '/detail/:taskId',
                 name: 'task-detail',
-                builder: (_, state) =>
-                    TaskDetailScreen(task: state.extra! as Task)),
+                builder: (_, state) {
+                  final taskId = state.pathParameters['taskId'];
+                  final task = tasks.firstWhere((item) => item.id == taskId);
+                  return TaskDetailScreen(task: task);
+                }),
           ],
         ),
       );

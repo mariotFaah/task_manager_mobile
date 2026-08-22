@@ -89,7 +89,7 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(height: 10),
               ...pending.take(3).map((task) => TaskCard(
                   task: task,
-                  onTap: () => context.push('/detail', extra: task),
+                  onTap: () => context.push('/detail/${task.id}'),
                   onToggle: (_) => onToggle(task))),
             ]);
       }),

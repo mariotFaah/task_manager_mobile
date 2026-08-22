@@ -70,7 +70,7 @@ class _TasksScreenState extends State<TasksScreen> {
                       final task = filtered[index];
                       return TaskCard(
                           task: task,
-                          onTap: () => context.push('/detail', extra: task),
+                          onTap: () => context.push('/detail/${task.id}'),
                           onToggle: (_) => widget.onToggle(task));
                     })),
       ]),

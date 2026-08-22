@@ -58,7 +58,7 @@ lib/
 | 4+ screens | Today dashboard, All tasks, Task details, New task and Settings |
 | Navigation | GoRouter named routes in `lib/main.dart`, including `/detail` |
 | Search/filter | Search field and category `ChoiceChip` filters in `TasksScreen` |
-| Parameter passing | `Task` passed through `context.push('/detail', extra: task)` |
+| Parameter passing | Task ID passed through `context.push('/detail/:taskId')` and read with GoRouter `pathParameters` |
 | Validated form | Title, description and category validators in `AddTaskScreen` |
 | Theme support | Material 3 light/dark themes and Settings switch |
 | Widget variety | `ListView`, `GridView`, `Stack`, `Card`, `Checkbox`, `ChoiceChip`, `Form`, `TextFormField` and more |
